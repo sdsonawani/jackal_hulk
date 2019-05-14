@@ -33,6 +33,18 @@ jackal_hulk:
             has_jerk_limits        : true
             max_jerk               : 1  # rad/s^3
 
-     
+      hulk_controller:
+            type: position_controllers/JointTrajectoryController
+               joints:
+                  - joint_0
+                  - joint_1
+                  - joint_2
+                  - joint_3
+                  - joint_4
+                  - joint_5
+ 
+            stop_trajectory_duration: 5
+            state_publish_rate:  30
+
 
   
