@@ -1,0 +1,15 @@
+jackal_hulk:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    joints:
+      - joint_2
+      - joint_3
+      - joint_4
+      - joint_5
+
+    publish_rate: 50
+
+
+
+
+
