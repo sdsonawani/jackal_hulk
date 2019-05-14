@@ -8,8 +8,7 @@ Here is simulation working:
 
 # Important
 As we are going to use differential drive controller from ros and need to communicate with ros, make sure you have installed 
-these plugins. If not, use the following commands in terminal to install ros controllers and gazebo plugins for ros-kinetic version.
-
+these plugins. If not, use the following commands in terminal to install ros controllers and gazebo plugins for ros.
 ```
 sudo apt-get install ros-kinetic-gazebo*
 ```
