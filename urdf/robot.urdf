@@ -1,0 +1,473 @@
+<?xml version="1.0"?>
+
+<robot name="Hulk1_0" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.25 0.25 0.25"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 -.01"/>
+      <material name="light_green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.25 0.25 0.25"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 -.01"/>
+    </collision>
+  </link>
+
+  <joint name="ground_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="J0"/>
+    <origin rpy="0 0 1.57" xyz="0 0 0"/>
+  </joint>
+
+  <link
+    name="J0">
+    <inertial>
+      <origin
+        xyz="-0.000706460686426508 0.0272123685996135 0.00193762954254035"
+        rpy="0 0 0" />
+      <mass
+        value="0.842314701534933" />
+      <inertia
+        ixx="0.000640396277654215"
+        ixy="2.06677988354757E-05"
+        ixz="1.67513473325691E-06"
+        iyy="4.85082483417939E-06"
+        iyz="-5.15656728401263E-05"
+        izz="0.000636888258829631" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J0.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link
+    name="J1">
+    <inertial>
+      <origin
+        xyz="0.0127772173776092 0.105626124564998 2.10228753274429E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.442781581809783" />
+      <inertia
+        ixx="0.000877466204647299"
+        ixy="0.000121847255181467"
+        ixz="-2.83601393295366E-09"
+        iyy="1.69200294458906E-05"
+        iyz="2.04231632220313E-08"
+        izz="0.000894386233142485" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J1.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="joint_0"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1407654"
+      rpy="1.5707963267949 0 3.14" />
+    <parent
+      link="J0" />
+    <child
+      link="J1" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="-1.57"
+      upper="4.71"/>
+  </joint>
+
+
+  <link
+    name="J2">
+    <inertial>
+      <origin
+        xyz="-0.0743491889986352 0.106614569474647 4.41704385393124E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.3642480151674" />
+      <inertia
+        ixx="0.00141211576348073"
+        ixy="-0.00040192534713983"
+        ixz="2.15987277006982E-08"
+        iyy="0.000803141991056202"
+        iyz="1.79569458366503E-08"
+        izz="0.00221525773177587" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J2.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="joint_1"
+    type="revolute">
+    <origin
+      xyz="-0.085 0.065 0"
+      rpy="0 0 0" />
+    <parent
+      link="J1" />
+    <child
+      link="J2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+       effort="0.1"
+      velocity="0.5"
+      lower="-0.2"
+      upper="1.57"/>
+  </joint>
+
+
+  <link
+    name="J3">
+    <inertial>
+      <origin
+        xyz="-0.00926617799445192 0.00658931422310832 -4.38122731752212E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.345826493526104" />
+      <inertia
+        ixx="1.9396077787513E-05"
+        ixy="2.11270458049182E-05"
+        ixz="-1.85495999326357E-10"
+        iyy="0.000266237995536425"
+        iyz="6.61612988099599E-10"
+        izz="0.000285634073276447" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J3.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+ 
+  <joint
+    name="joint_2"
+    type="revolute">
+    <origin
+      xyz="0.08502 0.25 0"
+      rpy="0 0 0" />
+    <parent
+      link="J2" />
+    <child
+      link="J3" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+       effort="0.1"
+      velocity="0.5"
+      lower="0"
+      upper="2.2"/>
+  </joint>
+
+
+
+  <link
+    name="J4">
+    <inertial>
+      <origin
+        xyz="-0.000448626229838095 0.176874933893527 2.14790414117386E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.466846295068837" />
+      <inertia
+        ixx="0.00022270062549776"
+        ixy="-0.000212778842009606"
+        ixz="-2.48816359304575E-09"
+        iyy="0.000203299095001316"
+        iyz="-2.6041855628261E-09"
+        izz="0.000425999720438171" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J4.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="joint_3"
+    type="revolute">
+    <origin
+      xyz="0 0.00720000000000004 0"
+      rpy="0 0 0" />
+    <parent
+      link="J3" />
+    <child
+      link="J4" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+       effort="0.1"
+      velocity="0.5"
+      lower="-1.57"
+      upper="1.57"/>
+  </joint>
+
+
+
+
+  <link
+    name="J5">
+    <inertial>
+      <origin
+        xyz="-0.00237225455270351 0.0014615624788088 0.000181070552634091"
+        rpy="0 0 0" />
+      <mass
+        value="0.20971977555193" />
+      <inertia
+        ixx="1.42777031785356E-05"
+        ixy="3.04581558802881E-06"
+        ixz="5.65513528953968E-07"
+        iyy="0.000212786912409375"
+        iyz="-7.9689999149159E-08"
+        izz="0.000227060889366871" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J5.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <joint
+    name="joint_4"
+    type="revolute">
+    <origin
+      xyz="-0.1272 0.25 0"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="J4" />
+    <child
+      link="J5" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+       effort="0.1"
+      velocity="0.5"
+      lower="-3.14"
+      upper="0.785"/>
+  </joint>
+
+
+  <link
+    name="J6">
+    <inertial>
+      <origin
+        xyz="-0.000778746944208354 0.0315829342820825 0.000266219178146593"
+        rpy="0 0 0" />
+      <mass
+        value="0.101804171454542" />
+      <inertia
+        ixx="1.74767539269875E-05"
+        ixy="1.04680910411378E-06"
+        ixz="2.14436839248118E-08"
+        iyy="7.00579222235942E-08"
+        iyz="-3.57857788651442E-07"
+        izz="1.75321505527441E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J6.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="joint_5"
+    type="revolute">
+    <origin
+      xyz="0 0.0497 0"
+      rpy="1.44884219526511E-16 -1.09498203910656 -1.28790483575377E-16" />
+    <parent
+      link="J5" />
+    <child
+      link="J6" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="0"
+      upper="6.28"/>
+  </joint>
+
+
+
+  <!-- add fake end effector for place the gripper to the right position-->
+  <link name="fake_end_effector_link">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="red"/>
+    </visual>
+
+     <collision>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="fake_end_effector_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.05 0"/>
+    <parent link="J6"/>
+    <child link="fake_end_effector_link"/>
+  </joint>
+
+
+
+</robot>

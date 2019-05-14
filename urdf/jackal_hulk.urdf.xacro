@@ -10,6 +10,17 @@
   <material name="white">
     <color rgba="1 1 1 1"/>
   </material>
+<xacro:macro name="gazebo_reference" params="name color  mu1 mu2 kp kd selfcollide">
+    <gazebo reference="${name}">
+      <material>Gazebo/${color}</material>
+      <dampingFactor value="0.9"/>
+      <mu1 value="${mu1}"/>
+      <mu2 value="${mu2}"/>
+      <kp value="${kp}"/>
+      <kd value="${kd}"/>
+      <selfCollide value="${selfcollide}"/>
+    </gazebo>
+</xacro:macro>
 
  <xacro:macro name="default_inertial" params="mass">
     <inertial>
@@ -27,6 +38,15 @@
    </inertial>
   </xacro:macro>
   
+   <xacro:macro name="cuboid_inertia" params ="m l w h">
+  <inertial>
+   <mass value="${m}"/>
+   <inertia ixx="${m*(w*w + h*h)/12}"  ixy="0.0" ixz="0.0"
+            iyy="${m*(l*l + h*h)/12}"  iyz= "0.0"
+            izz="${m*(l*l + w*w)/12}"/>
+   </inertial>
+  </xacro:macro>
+
   <xacro:macro name="cylinder_inertia" params ="m r h">
   <inertial>
    <mass value="${m}"/>
@@ -39,7 +59,7 @@
 <link name="base_link">
     <visual>
       <geometry>
-        <mesh filename="package://jackal/meshes/base_link.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/base_link.dae"/>
       </geometry>
       <origin  rpy="0 0 0" xyz="0 0 0" />
       <material name="blue"/>
@@ -47,11 +67,13 @@
     <collision>
       <origin  rpy="0 0 0" xyz="0 0 0"  />
       <geometry>
-        <mesh filename="package://jackal/meshes/base_link.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/base_link.dae"/>
       </geometry>
     </collision>
     <!--xacro:default_inertial mass="10"/-->
 </link>
+
+
 
 <gazebo reference="base_link">
     <static>0</static>
@@ -61,10 +83,10 @@
     <material>Gazebo/Grey</material>
 </gazebo>
 
-<link name="link_1">
+<link name="dummy_link">
     <visual>
       <geometry>
-        <mesh filename="package://jackal/meshes/link_1.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/base_link.dae"/>
       </geometry>
       <origin  rpy="0 0 0" xyz="0 0 0" />
       <material name="blue"/>
@@ -72,7 +94,43 @@
     <collision>
       <origin  rpy="0 0 0" xyz="0 0 0"  />
       <geometry>
-       <mesh filename="package://jackal/meshes/link_1.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/base_link.dae"/>
+      </geometry>
+    </collision>
+    <xacro:cuboid_inertia m="10" l="0.25" w="0.25" h="0.25" />
+</link>
+
+<gazebo reference="dummy_link">
+    <static>0</static>
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <selfCollide>true</selfCollide> 
+    <material>Gazebo/Yellow</material>
+</gazebo>
+
+
+<joint name="dummy_joint" type="fixed">
+      <axis xyz="0 0 0"/> 
+      <parent link="base_link"/>
+      <child link="dummy_link"/>
+      <origin xyz="0 0 0"/>
+</joint>
+
+<!-- This part of urdf is for Jackal Robot -->
+
+
+<link name="link_1">
+    <visual>
+      <geometry>
+        <mesh filename="package://jackal/meshes/jackal/link_1.dae"/>
+      </geometry>
+      <origin  rpy="0 0 0" xyz="0 0 0" />
+      <material name="blue"/>
+     </visual>
+    <collision>
+      <origin  rpy="0 0 0" xyz="0 0 0"  />
+      <geometry>
+       <mesh filename="package://jackal/meshes/jackal/link_1.dae"/>
       </geometry>
     </collision>
     <xacro:default_inertial mass="0.1"/>
@@ -98,7 +156,7 @@
 <link name="link_rf">
     <visual>
       <geometry>
-        <mesh filename="package://jackal/meshes/link_2.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
       <origin  rpy="0 0 0" xyz="0 0 0" />
       <material name="blue"/>
@@ -106,7 +164,7 @@
     <collision>
       <origin  rpy="0 0 0" xyz="0 0 0"  />
       <geometry>
-       <mesh filename="package://jackal/meshes/link_2.dae"/>
+       <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
     </collision>
     <xacro:cylinder_inertia m="0.15" r="0.1" h="0.04"/>
@@ -143,7 +201,7 @@
 <link name="link_rb">
     <visual>
       <geometry>
-        <mesh filename="package://jackal/meshes/link_2.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
       <origin  rpy="0 0 0" xyz="0 0 0" />
       <material name="blue"/>
@@ -151,7 +209,7 @@
     <collision>
       <origin  rpy="0 0 0" xyz="0 0 0"  />
       <geometry>
-       <mesh filename="package://jackal/meshes/link_2.dae"/>
+       <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
     </collision>
     <xacro:cylinder_inertia m="0.15" r="0.1" h="0.04"/>
@@ -190,7 +248,7 @@
 <link name="link_lf">
     <visual>
       <geometry>
-        <mesh filename="package://jackal/meshes/link_2.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
       <origin  rpy="0 0 0" xyz="0 0 0" />
       <material name="blue"/>
@@ -198,7 +256,7 @@
     <collision>
       <origin  rpy="0 0 0" xyz="0 0 0"  />
       <geometry>
-       <mesh filename="package://jackal/meshes/link_2.dae"/>
+       <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
     </collision>
     <xacro:cylinder_inertia m="0.15" r="0.1" h="0.04"/>
@@ -237,7 +295,7 @@
 <link name="link_lb">
     <visual>
       <geometry>
-        <mesh filename="package://jackal/meshes/link_2.dae"/>
+        <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
       <origin  rpy="0 0 0" xyz="0 0 0" />
       <material name="blue"/>
@@ -245,7 +303,7 @@
     <collision>
       <origin  rpy="0 0 0" xyz="0 0 0"  />
       <geometry>
-       <mesh filename="package://jackal/meshes/link_2.dae"/>
+       <mesh filename="package://jackal/meshes/jackal/link_2.dae"/>
       </geometry>
     </collision>
     <xacro:cylinder_inertia m="0.15" r="0.1" h="0.04"/>
@@ -279,7 +337,545 @@
     </joint>
   </transmission>
 
+<!-- This part of urdf is for HULK robot ARM -->
 
+ 
+
+<joint name="ground_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="J0"/>
+    <origin rpy="0 0 1.57" xyz="0.12 0 0"/>
+</joint>
+
+<link
+    name="J0">
+    <inertial>
+      <origin
+        xyz="-0.000706 0.02721 0.001937"
+        rpy="0 0 0" />
+      <mass
+        value="0.842" />
+      <inertia
+        ixx="0.00064"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0.00063" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J0.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2509 0.25098 0.2509 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.0007060 0.02720 0.00190"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J0.dae" />
+      </geometry>
+    </collision>
+</link>
+
+<xacro:gazebo_reference name="J0" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+
+  <link
+    name="J1">
+    <inertial>
+      <origin
+        xyz="0.01277 0.1058 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.4427" />
+      <inertia
+        ixx="0.00087"
+        ixy="0.00012"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0.0008" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J1.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0.01277 0.1056 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J1.dae" />
+      </geometry>
+    </collision>
+  </link>
+<xacro:gazebo_reference name="J1" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+
+ 
+  <joint
+    name="joint_6"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1407"
+      rpy="1.57 0 3.14" />
+    <parent
+      link="J0" />
+    <child
+      link="J1" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="-1.57"
+      upper="4.71"/>
+  </joint>
+
+
+
+<transmission name="link_joint_6_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="link_joint_6_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="joint_6">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+ </transmission>
+
+
+
+  <link
+    name="J2">
+    <inertial>
+      <origin
+        xyz="-0.07434 0.1066 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.3642" />
+      <inertia
+        ixx="0.0014"
+        ixy="-0.0004"
+        ixz="0"
+        iyy="0.0008"
+        iyz="0"
+        izz="0.0022" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J2.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.0743 0.1066 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J2.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+<xacro:gazebo_reference name="J2" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+
+  <joint
+    name="joint_7"
+    type="revolute">
+    <origin
+      xyz="-0.085 0.065 0"
+      rpy="0 0 0" />
+    <parent
+      link="J1" />
+    <child
+      link="J2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="-0.2"
+      upper="1.57"/>
+  </joint>
+
+
+<transmission name="link_joint_7_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="link_joint_7_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="joint_7">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+ </transmission>
+
+
+
+  <link
+    name="J3">
+    <inertial>
+      <origin
+        xyz="-0.0092 0.00658 -4.E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.3458" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0.0002"
+        iyz="0"
+        izz="0.0002" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J3.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.00926 0.0065 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J3.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+<xacro:gazebo_reference name="J3" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+  
+
+  <joint
+    name="joint_8"
+    type="revolute">
+    <origin
+      xyz="0.08502 0.25 0"
+      rpy="0 0 0" />
+    <parent
+      link="J2" />
+    <child
+      link="J3" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="0"
+      upper="2.2"/>
+  </joint>
+
+
+<transmission name="link_joint_8_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="link_joint_8_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="joint_8">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+ </transmission>
+
+
+
+  <link
+    name="J4">
+    <inertial>
+      <origin
+        xyz="-0.0004 0.1768 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.4668" />
+      <inertia
+        ixx="0.0002"
+        ixy="-0.0002"
+        ixz="0"
+        iyy="0.00020"
+        iyz="0"
+        izz="0.0004" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J4.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.000448 0.17687 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J4.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+<xacro:gazebo_reference name="J4" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+  
+  <joint
+    name="joint_9"
+    type="revolute">
+    <origin
+      xyz="0 0.0072 0"
+      rpy="0 0 0" />
+    <parent
+      link="J3" />
+    <child
+      link="J4" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="0"
+      velocity="0"
+      lower="-1.57"
+      upper="1.57"/>
+  </joint>
+
+
+
+<transmission name="link_joint_9_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="link_joint_9_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="joint_9">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+ </transmission>
+
+
+
+  <link
+    name="J5">
+    <inertial>
+      <origin
+        xyz="-0.00237 0.0014 0.00018"
+        rpy="0 0 0" />
+      <mass
+        value="0.2097" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0.00021"
+        iyz="0"
+        izz="0.00021" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J5.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.0023 0.0014 0.0001"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J5.dae" />
+      </geometry>
+    </collision>
+  </link>
+<xacro:gazebo_reference name="J5" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+
+  
+
+  <joint
+    name="joint_10"
+    type="revolute">
+    <origin
+      xyz="-0.1272 0.25 0"
+      rpy="3.141 0 3.141" />
+    <parent
+      link="J4" />
+    <child
+      link="J5" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="-3.14"
+      upper="0.785"/>
+  </joint>
+
+
+<transmission name="link_joint_10_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="link_joint_10_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="joint_10">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+ </transmission>
+
+
+
+  <link
+    name="J6">
+    <inertial>
+      <origin
+        xyz="-0.0007 0.0315 0.0002"
+        rpy="0 0 0" />
+      <mass
+        value="0.1018" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J6.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.00070 0.0315 0.0002"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jackal/meshes/hulk/J6.dae" />
+      </geometry>
+    </collision>
+  </link>
+<xacro:gazebo_reference name="J6" color="White"  mu1="1" mu2="1" kp="10000" kd="1" selfcollide="True"/>
+
+ 
+
+  <joint
+    name="joint_11"
+    type="revolute">
+    <origin
+      xyz="0 0.0497 0"
+      rpy="0 -1.094 0" />
+    <parent
+      link="J5" />
+    <child
+      link="J6" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="0.1"
+      velocity="0.5"
+      lower="0"
+      upper="6.28"/>
+  </joint>
+
+
+
+<transmission name="link_joint_11_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="link_joint_11_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="joint_11">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+ </transmission>
+
+
+  <!-- add fake end effector for place the gripper to the right position-->
+  <link name="fake_end_effector_link">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="red"/>
+    </visual>
+
+     <collision>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+  </link>
+
+
+
+  <joint name="fake_end_effector_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.05 0"/>
+    <parent link="J6"/>
+    <child link="fake_end_effector_link"/>
+  </joint>
 
 <gazebo>
        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
