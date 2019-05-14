@@ -34,46 +34,46 @@ jackal_hulk:
             max_jerk               : 1  # rad/s^3
 
       hulk_controller:
-            # type: position_controllers/JointTrajectoryController
-            # joints:
-            #       - joint_6
-            #       - joint_7
-            #       - joint_8
-            #       - joint_9
-            #       - joint_10
-            #       - joint_11
+            type: position_controllers/JointTrajectoryController
+            joints:
+                  - joint_6
+                  - joint_7
+                  - joint_8
+                  - joint_9
+                  - joint_10
+                  - joint_11
  
-            # stop_trajectory_duration: 5
-            # state_publish_rate:  30
+            stop_trajectory_duration: 5
+            state_publish_rate:  30
 
-            joint6_position_controller:
-                  type: "position_controllers/JointPositionController"
-                  joint: joint_6
-                  pid: {p: 1.0, i: 0.1, d: 0.1}   
+            # joint6_position_controller:
+            #       type: "position_controllers/JointPositionController"
+            #       joint: joint_6
+            #       pid: {p: 1.0, i: 0.1, d: 0.1}   
 
-            joint7_position_controller:
-                  type: "position_controllers/JointPositionController"
-                  joint: joint_7
-                  pid: {p: 1.0, i: 0.1, d: 0.1}         
+            # joint7_position_controller:
+            #       type: "position_controllers/JointPositionController"
+            #       joint: joint_7
+            #       pid: {p: 1.0, i: 0.1, d: 0.1}         
 
-            joint8_position_controller:
-                  type: "position_controllers/JointPositionController"
-                  joint: joint_8
-                  pid: {p: 1.0, i: 0.1, d: 0.1}         
+            # joint8_position_controller:
+            #       type: "position_controllers/JointPositionController"
+            #       joint: joint_8
+            #       pid: {p: 1.0, i: 0.1, d: 0.1}         
 
-            joint9_position_controller:
-                  type: "position_controllers/JointPositionController"
-                  joint: joint_9
-                  pid: {p: 1.0, i: 0.1, d: 0.1}         
+            # joint9_position_controller:
+            #       type: "position_controllers/JointPositionController"
+            #       joint: joint_9
+            #       pid: {p: 1.0, i: 0.1, d: 0.1}         
 
-            joint10_position_controller:
-                  type: "position_controllers/JointPositionController"
-                  joint: joint_10
-                  pid: {p: 1.0, i: 0.1, d: 0.1}         
+            # joint10_position_controller:
+            #       type: "position_controllers/JointPositionController"
+            #       joint: joint_10
+            #       pid: {p: 1.0, i: 0.1, d: 0.1}         
 
-            joint11_position_controller:
-                  type: "position_controllers/JointPositionController"
-                  joint: joint_11
-                  pid: {p: 1.0, i: 0.1, d: 0.1}    
+            # joint11_position_controller:
+            #       type: "position_controllers/JointPositionController"
+            #       joint: joint_11
+            #       pid: {p: 1.0, i: 0.1, d: 0.1}    
 
   
