@@ -185,7 +185,7 @@
     <limit
        effort="0.1"
       velocity="0.5"
-      lower="-0.2"
+      lower="-1.57"
       upper="1.57"/>
   </joint>
 
@@ -248,7 +248,7 @@
     <limit
        effort="0.1"
       velocity="0.5"
-      lower="0"
+      lower="-1.57"
       upper="2.2"/>
   </joint>
 
@@ -377,7 +377,7 @@
        effort="0.1"
       velocity="0.5"
       lower="-3.14"
-      upper="0.785"/>
+      upper="3.14"/>
   </joint>
 
 
@@ -438,8 +438,8 @@
     <limit
       effort="0.1"
       velocity="0.5"
-      lower="0"
-      upper="6.28"/>
+      lower="-3.14"
+      upper="3.14"/>
   </joint>
 
 
