@@ -53,7 +53,7 @@ class kdl:
     def ikSolve(self):        
         
         hulk_kdl_tree = kdl_parser_py.urdf.treeFromFile("/home/local/ASURITE/sdsonawa/catkin_ws/src/jackal/urdf/robot.urdf")[1]
-        hulk_transform = hulk_kdl_tree.getChain("base_link","fake_end_effector_link")
+        hulk_transform = hulk_kdl_tree.getChain("dummy_link","fake_end_effector_link")
         print("Finding Transform Between base_link and end_effector_link")
         kdl_fk = KDL.ChainFkSolverPos_recursive(hulk_transform)
         kdl_ik = KDL.ChainIkSolverPos_LMA(hulk_transform)
