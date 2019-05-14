@@ -19,7 +19,7 @@
 </include>
 
 <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz"/>
-<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"/>
+<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"/> -->
 <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
 
